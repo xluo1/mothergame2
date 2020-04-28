@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - enemy
+  - diceRelated
+  - statScreenRelated
+  - speechRelated
+  - cutsceneRelated
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Menu and Map
+    uniqueID: 4289404607
+    locked: 0
+  - name: Actors
+    uniqueID: 307826669
+    locked: 0
+  - name: statscreen
+    uniqueID: 1117900197
+    locked: 0
+  - name: speechbubble
+    uniqueID: 2047493531
+    locked: 0
+  - name: cutscenescreen
+    uniqueID: 1054557525
+    locked: 0
+  - name: winlosescreen
+    uniqueID: 1164123527
+    locked: 0
