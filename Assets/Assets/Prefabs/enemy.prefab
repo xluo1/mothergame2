@@ -49,8 +49,13 @@ MonoBehaviour:
   expPoints: 0
   expPointsHalf: 0
   enemySprite: {fileID: 0}
+  deadSprite: {fileID: 0}
   bottomX: 0
   bottomY: 0
+  deadSnake: {fileID: 21300000, guid: 494289fde53b98942af819115edf54f9, type: 3}
+  deadWorm: {fileID: 21300000, guid: e94716b4dc6bffa4ea065e7a95a30774, type: 3}
+  deadSquirrel: {fileID: 21300000, guid: ca49945bd8d6f904f83f1eb2b807eb6f, type: 3}
+  lossCat: {fileID: 21300000, guid: 864d0016c3123904986ad7a9343be06a, type: 3}
 --- !u!212 &453898232658428831
 SpriteRenderer:
   m_ObjectHideFlags: 0

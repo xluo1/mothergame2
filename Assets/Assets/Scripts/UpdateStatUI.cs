@@ -55,8 +55,29 @@ public class UpdateStatUI : MonoBehaviour
 
        
 
-        childText.GetComponent<TextMeshProUGUI>().text = "Child has +" + childA.ToString()+ " in stat A, +" + childB.ToString() + " in stat B and +" + childC.ToString() + " in stat C.";
-        motherText.GetComponent<TextMeshProUGUI>().text = "Mother has +" + motherA.ToString() + " in stat A, +" + motherB.ToString() + " in stat B and +" + motherC.ToString() + " in stat C.";
+        childText.GetComponent<TextMeshProUGUI>().text = "Child has +" + childA.ToString()+ " in STR, +" + childB.ToString() + " in DEX and +" + childC.ToString() + " in CON.";
+
+        // red if mother lost HP
+        string motherAStr = motherA.ToString();
+        string motherBStr = motherB.ToString();
+        string motherCStr = motherC.ToString();
+
+        if (motherA <= 6)
+        {
+            motherAStr = "<color=#8e4747>" + motherAStr + "</color>";
+        }
+
+        if (motherB <= 6)
+        {
+            motherBStr = "<color=#8e4747>" + motherBStr + "</color>";
+        }
+
+        if (motherC <= 6)
+        {
+            motherCStr = "<color=#8e4747>" + motherCStr + "</color>";
+        }
+
+        motherText.GetComponent<TextMeshProUGUI>().text = "Mother has +" + motherAStr + " in STR, +" + motherBStr + " in DEX and +" + motherCStr  + " in CON.";
        
 
     }
@@ -68,7 +89,7 @@ public class UpdateStatUI : MonoBehaviour
         enemy = GameObject.FindGameObjectWithTag("enemy");
         enemyStat = enemy.GetComponent<EnemyStats>().stat;
         enemyMod = enemy.GetComponent<EnemyStats>().modifier;
-        enemyText.GetComponent<TextMeshProUGUI>().text = "The monster they encountered has +" + enemyMod.ToString() + " in stat " + enemyStat + ".";
+        enemyText.GetComponent<TextMeshProUGUI>().text = "The monster they encountered has +" + enemyMod.ToString() + " in " + enemyStat + ".";
 
     }
 }

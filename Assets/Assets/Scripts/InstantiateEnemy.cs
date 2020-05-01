@@ -28,6 +28,9 @@ public class InstantiateEnemy : MonoBehaviour
     private float spriteHeight;
     private float spriteWidth;
 
+    public float bossX;
+    public float bossY;
+
     private int mapPhase;
     private enemyType newEnemy;
     private int randomIndex;
@@ -49,17 +52,30 @@ public class InstantiateEnemy : MonoBehaviour
     {
         // instantiate prefab
         // dump all the stats in
-    
 
-        NewenemyObject = Instantiate(enemyPrefab, new Vector2(bottomX, bottomY), Quaternion.identity);
+        int mapPhase = this.GetComponent<StateController>().mapPhase;
+
+        if (mapPhase == 3)
+        {
+            NewenemyObject = Instantiate(enemyPrefab, new Vector2(bossX, bossY), Quaternion.identity);
+            NewenemyObject.GetComponent<EnemyStats>().bottomX = bossX;
+            NewenemyObject.GetComponent<EnemyStats>().bottomY = bossY;
+
+        } else
+        {
+            NewenemyObject = Instantiate(enemyPrefab, new Vector2(bottomX, bottomY), Quaternion.identity);
+            NewenemyObject.GetComponent<EnemyStats>().bottomX = bottomX;
+            NewenemyObject.GetComponent<EnemyStats>().bottomY = bottomY;
+        }
+
+        
         NewenemyObject.GetComponent<EnemyStats>().stat = x.stat;
         NewenemyObject.GetComponent<EnemyStats>().modifier = x.modifier;
         NewenemyObject.GetComponent<EnemyStats>().expPoints = x.expPoints;
         NewenemyObject.GetComponent<EnemyStats>().expPointsHalf = x.expPointsHalf;
         NewenemyObject.GetComponent<EnemyStats>().enemySprite = x.enemySprite;
 
-        NewenemyObject.GetComponent<EnemyStats>().bottomX = bottomX;
-        NewenemyObject.GetComponent<EnemyStats>().bottomY = bottomY;
+        
 
     }
 

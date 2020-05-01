@@ -11,6 +11,7 @@ public class DiceObjectHolder : MonoBehaviour
     public Canvas mainCanvas;
     public GameObject victory;
     public GameObject defeat;
+    public GameObject damage;
     public GameObject nextPrefab;
 
 

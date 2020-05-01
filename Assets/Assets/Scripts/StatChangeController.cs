@@ -123,10 +123,10 @@ public class StatChangeController : MonoBehaviour
 
     public void changeStat(int change, string stat)
     {
-        if (stat == "A")
+        if (stat == "STR")
         {
             currentAStat = currentAStat + change;    
-        } else if (stat == "B")
+        } else if (stat == "DEX")
         {
             currentBStat = currentBStat + change;
         } else

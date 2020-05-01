@@ -64,3 +64,9 @@ TagManager:
   - name: winlosescreen
     uniqueID: 1164123527
     locked: 0
+  - name: helpscreen
+    uniqueID: 2442188093
+    locked: 0
+  - name: black
+    uniqueID: 231267815
+    locked: 0

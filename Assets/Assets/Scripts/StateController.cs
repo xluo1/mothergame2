@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class StateController : MonoBehaviour
 {
+    // black
+    public GameObject black;
 
     // level change stuff
     public int level;
@@ -39,6 +41,9 @@ public class StateController : MonoBehaviour
     // cutscene
     public GameObject cutscenePrefab;
 
+    // map
+    public GameObject map;
+
     void Start()
     {
         // select enemy
@@ -56,10 +61,41 @@ public class StateController : MonoBehaviour
         // instantiate speech bubble
         instantiateSpeech();
 
+        // fade in
+        StartCoroutine(fadeIn());
+        
+        // start music
+        this.GetComponent<AudioSource>().Play();
+
         // get needed variables
         mother = GameObject.Find("mother").gameObject;
+        instantiateCutscene(1);
+
+        
 
 
+    }
+
+    IEnumerator fadeIn()
+    {
+        //////////
+        Color tmp = black.GetComponent<SpriteRenderer>().color;
+        tmp.a = tmp.a - .25f;
+        black.GetComponent<SpriteRenderer>().color = tmp;
+        yield return new WaitForSeconds(.25f);
+        tmp = black.GetComponent<SpriteRenderer>().color;
+        tmp.a = tmp.a - .25f;
+        black.GetComponent<SpriteRenderer>().color = tmp;
+        yield return new WaitForSeconds(.25f);
+        tmp = black.GetComponent<SpriteRenderer>().color;
+        tmp.a = tmp.a - .25f;
+        black.GetComponent<SpriteRenderer>().color = tmp;
+        yield return new WaitForSeconds(.25f);
+        tmp = black.GetComponent<SpriteRenderer>().color;
+        tmp.a = tmp.a - .25f;
+        black.GetComponent<SpriteRenderer>().color = tmp;
+        yield return new WaitForSeconds(.25f);
+        ////////////
     }
 
     // Update is called once per frame
@@ -93,7 +129,7 @@ public class StateController : MonoBehaviour
             {
                 currentStat = GameObject.FindGameObjectWithTag("enemy").GetComponent<EnemyStats>().stat;
                 currentMod =GameObject.FindGameObjectWithTag("enemy").GetComponent<EnemyStats>().modifier;
-                if (currentStat == "A")
+                if (currentStat == "STR")
                 {
                     mother.GetComponent<PlayerStats>().Amodifier = mother.GetComponent<PlayerStats>().Amodifier - currentMod;
                     this.GetComponent<UpdateStatUI>().updateStats();
@@ -101,7 +137,7 @@ public class StateController : MonoBehaviour
                     {
                         loseScreen();
                     }
-                } else if (currentStat == "B")
+                } else if (currentStat == "DEX")
                 {
                     mother.GetComponent<PlayerStats>().Bmodifier = mother.GetComponent<PlayerStats>().Bmodifier - currentMod;
                     this.GetComponent<UpdateStatUI>().updateStats();
@@ -109,7 +145,7 @@ public class StateController : MonoBehaviour
                     {
                         loseScreen();
                     }
-                } else if (currentStat == "C")
+                } else if (currentStat == "CON")
                 {
                     mother.GetComponent<PlayerStats>().Cmodifier = mother.GetComponent<PlayerStats>().Cmodifier - currentMod;
                     this.GetComponent<UpdateStatUI>().updateStats();
@@ -157,12 +193,18 @@ public class StateController : MonoBehaviour
         statScreen.GetComponent<StatChangeController>().mainCamera = mainCamera;
         statScreen.GetComponent<StatChangeController>().setCamera();
 
+        Debug.Log("made stat screen");
+
     }
 
     public void destroyStatScreen()
     {
+        
         Destroy(statScreen);
         statScreen.SetActive(false);
+        Debug.Log("destroy stat screen");
+
+
 
     }
 
@@ -171,7 +213,7 @@ public class StateController : MonoBehaviour
     public void changeLevel() // call this when confirm is clicked on stat screen too
     {
 
-    
+        
 
         //delete dice, mods, rolls, next level button
         toDestroy = GameObject.FindGameObjectsWithTag("diceRelated");
@@ -203,13 +245,20 @@ public class StateController : MonoBehaviour
         } 
         else if (level == 9)
         {
+           
             mapPhase = 3;
         } else if (level == 12)
         {
             winScreen();
         }
 
-     
+        
+
+        // change map
+        map.GetComponent<MapController>().mapLevel = level-1;
+        map.GetComponent<MapController>().updateMap();
+
+       
 
         // select new enemy
         this.GetComponent<InstantiateEnemy>().selectEnemy();
@@ -231,6 +280,7 @@ public class StateController : MonoBehaviour
             }
             // set  fight state to alone
             fightState = "alone";
+           
 
         } else
         {
@@ -247,6 +297,7 @@ public class StateController : MonoBehaviour
         GameObject.Find("fight button").GetComponent<Button>().interactable = false;
         speechInstance = Instantiate(speechPrefab, new Vector2(-3.93f, 1.03f), Quaternion.identity);
         // set camera,,, or dont...
+        speechInstance.GetComponent<setCameraSpeech>().setCanvasCamera(mainCamera);
     }
 
     public void startFight()
@@ -258,4 +309,22 @@ public class StateController : MonoBehaviour
         // enable fight button
         GameObject.Find("fight button").GetComponent<Button>().interactable = true;
     }
+
+    public void instantiateCutscene(int x)
+    {
+        Debug.Log("IN CUTSCENE");
+        // x is which cutscene
+        GameObject cutscene = Instantiate(cutscenePrefab, new Vector2(-2.69f, 0.87f), Quaternion.identity);
+        cutscene.GetComponent<ControlCutscene>().setCanvasCamera(mainCamera);
+        cutscene.GetComponent<ControlCutscene>().setWhichCutscene(x);
+    }
+
+    public void destroyCutscene()
+    {
+        GameObject cutsceneToDestroy = GameObject.FindGameObjectWithTag("cutsceneRelated");
+        Destroy(cutsceneToDestroy);
+        cutsceneToDestroy.SetActive(false);
+    }
 }
+
+

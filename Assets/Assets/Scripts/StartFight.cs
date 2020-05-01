@@ -43,6 +43,8 @@ public class StartFight : MonoBehaviour
     private GameObject defeatPrefab;
     private GameObject victory;
     private GameObject defeat;
+    private GameObject damagePrefab;
+    private GameObject damage;
 
     public GameObject nextPrefab;
     public GameObject next;
@@ -77,6 +79,7 @@ public class StartFight : MonoBehaviour
         // get victory stuff
         victoryPrefab = GameObject.Find("gameController").GetComponent<DiceObjectHolder>().victory;
         defeatPrefab = GameObject.Find("gameController").GetComponent<DiceObjectHolder>().defeat;
+        damagePrefab = GameObject.Find("gameController").GetComponent<DiceObjectHolder>().damage;
         nextPrefab = GameObject.Find("gameController").GetComponent<DiceObjectHolder>().nextPrefab;
 
         // randomize rolls // (check if mom help or not here)
@@ -96,11 +99,11 @@ public class StartFight : MonoBehaviour
 
         if (fightState == "help")
         {
-            if (stat == "A")
+            if (stat == "STR")
             {
                 playerModifierNumber = child.GetComponent<PlayerStats>().Amodifier + (mother.GetComponent<PlayerStats>().Amodifier / 2);
             }
-            else if (stat == "B")
+            else if (stat == "DEX")
             {
                 playerModifierNumber = child.GetComponent<PlayerStats>().Bmodifier + (mother.GetComponent<PlayerStats>().Bmodifier / 2);
             }
@@ -110,11 +113,11 @@ public class StartFight : MonoBehaviour
             }
         }   else if (fightState == "alone")
         {
-            if (stat == "A")
+            if (stat == "STR")
             {
                 playerModifierNumber = child.GetComponent<PlayerStats>().Amodifier;
             }
-            else if (stat == "B")
+            else if (stat == "DEX")
             {
                 playerModifierNumber = child.GetComponent<PlayerStats>().Bmodifier;
             }
@@ -166,15 +169,25 @@ public class StartFight : MonoBehaviour
         if (playerScore >= enemyScore)
         {
             // instantiate you win text if win
-            victory = Instantiate(victoryPrefab, new Vector2(-3.91f, 1.577f), Quaternion.identity);
+            victory = Instantiate(victoryPrefab, new Vector2(-3.91f, 1.64f), Quaternion.identity);
+            // change sprite
+            enemy.GetComponent<SpriteRenderer>().sprite = enemy.GetComponent<EnemyStats>().deadSprite;
             // set win variable
             GameObject.Find("gameController").GetComponent<StateController>().isWin = true;
         }
         else
         {
-            // instantiate you lose text if loss
-            defeat = Instantiate(defeatPrefab, new Vector2(-3.91f, 1.577f), Quaternion.identity);
-            GameObject.Find("gameController").GetComponent<StateController>().isWin = false;
+            if (fightState == "alone")
+            {
+                // instantiate you lose text if loss
+                defeat = Instantiate(defeatPrefab, new Vector2(-3.91f, 1.64f), Quaternion.identity);
+                GameObject.Find("gameController").GetComponent<StateController>().isWin = false;
+            } else
+            {
+                damage = Instantiate(damagePrefab, new Vector2(-3.91f, 1.64f), Quaternion.identity);
+                GameObject.Find("gameController").GetComponent<StateController>().isWin = false;
+            }
+            
 
         }
 

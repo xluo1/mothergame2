@@ -17,32 +17,32 @@ public class clickPlusMinus : MonoBehaviour
 
     public void clickPlusA()
     {
-        controller.changeStat(1, "A");
+        controller.changeStat(1, "STR");
     }
 
     public void clickMinusA()
     {
-        controller.changeStat(-1, "A");
+        controller.changeStat(-1, "STR");
     }
 
     public void clickPlusB()
     {
-        controller.changeStat(1, "B");
+        controller.changeStat(1, "DEX");
     }
 
     public void clickMinusB()
     {
-        controller.changeStat(-1, "B");
+        controller.changeStat(-1, "DEX");
     }
 
     public void clickPlusC()
     {
-        controller.changeStat(1, "C");
+        controller.changeStat(1, "CON");
     }
 
     public void clickMinusC()
     {
-        controller.changeStat(-1, "C");
+        controller.changeStat(-1, "CON");
     }
 
     // Update is called once per frame
